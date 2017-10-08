@@ -35,8 +35,8 @@ module.exports = {
 
     getUserById: ( req, res, next ) => {
         for(data of userData){
-            if(data.id = req.params.userId) {
-                res.status(200).send(data)
+            if(data.id == req.params.userId) {
+                res.status(200).json(data)
             }
         }
         res.status(404).json(null)
@@ -113,9 +113,11 @@ module.exports = {
     },
 
     deleteUser : (req, res, next) => {
-        userData = userData.filter( (val) => {
-            return val.id != req.params.userId 
-        })
+        for( i = 0; i < userData.length; i++ ) {
+            if (userData[i].id == req.params.userId) {
+                userData.splice(i, 1)
+            }
+        }
         res.status(200).send(userData);
     }
 }
